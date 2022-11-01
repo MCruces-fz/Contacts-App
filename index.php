@@ -1,3 +1,18 @@
+<?php
+
+  if (file_exists("contacts.json")) {
+    $contacts = json_decode(file_get_contents("contacts.json"), true);
+  } else {
+    $contacts = [
+      # ["name" => "Antonio", "phone_number" => "986602342"],
+      # ["name" => "Miguel", "phone_number" => "986604009"],
+      # ["name" => "Marcos", "phone_number" => "986601880"],
+      # ["name" => "Maria", "phone_number" => "986600510"]
+    ];
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +71,7 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./add.html">Add Contact</a>
+            <a class="nav-link" href="add.php">Add Contact</a>
           </li>
         </ul>
       </div>
@@ -67,40 +82,28 @@
     <!-- Bootstrap Containers https://getbootstrap.com/docs/5.0/layout/containers/ -->
     <div class="container pt-4 p-3">
       <div class="row">
-        <!-- Aquí se copian los contactos que son DIVs de tipo columna del GitHub de Sarosi -->
-
-        <div class="col-md-4 mb-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h3 class="card-title text-capitalize">Contact Name 1</h3>
-              <p class="m-2">987654321</p>
-              <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
-              <a href="#" class="btn btn-danger mb-2">Delete Contact</a>
+        <!-- Si no hay contactos se muestra un mensaje -->
+        <?php if (count($contacts) == 0): ?>
+          <div class="col-md-4 mx-auto">
+            <div class="card card-body text-center">
+              <p>No contacts saved yet</p>
+              <a href="add.php">Add One!</a>
             </div>
           </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h3 class="card-title text-capitalize">Contact Name 2</h3>
-              <p class="m-2">987654321</p>
-              <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
-              <a href="#" class="btn btn-danger mb-2">Delete Contact</a>
+        <?php endif ?>
+        <!-- Ahora se edita el DIV de HTML y se pone un foreach de PHP para que genere tantos como hay en la lista de diccionarios. -->
+        <?php foreach ($contacts as $contact): ?>
+          <div class="col-md-4 mb-3">
+            <div class="card text-center">
+              <div class="card-body">
+                <h3 class="card-title text-capitalize"><?= $contact["name"] ?></h3>
+                <p class="m-2"><?= $contact["phone_number"] ?></p>
+                <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
+                <a href="#" class="btn btn-danger mb-2">Delete Contact</a>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-          <div class="card text-center">
-            <div class="card-body">
-              <h3 class="card-title text-capitalize">Contact Name 3</h3>
-              <p class="m-2">987654321</p>
-              <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
-              <a href="#" class="btn btn-danger mb-2">Delete Contact</a>
-            </div>
-          </div>
-        </div>
+        <?php endforeach ?>
 
       </div>
     </div>
