@@ -1,26 +1,18 @@
 <?php
 
+  require "database.php";
+
 // SUPERGLOBAL VARIABLE
 /*
 Esta variable contiene información sobre la petición HTTP que nos mandan
 con var_dum(_SERVER) se puede ver la información que contiene.
 */
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $contact = [
-      "name" => $_POST["name"],
-      "phone_number" => $_POST["phone_number"],
-    ];
+    $name = $_POST["name"];
+    $phoneNumber = $_POST["phone_number"];
 
-
-    if (file_exists("contacts.json")) {
-      $contacts = json_decode(file_get_contents("contacts.json"), true);
-    } else {
-      $contacts = [];
-    }
-
-    $contacts[] = $contact;
-
-    file_put_contents("contacts.json", json_encode($contacts));
+    $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES ('$name', '$phoneNumber');");
+    $statement->execute();
 
     # Pedimos que nos redireccione a index.php
     header("Location: index.php");

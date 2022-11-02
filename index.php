@@ -1,15 +1,10 @@
 <?php
 
-  if (file_exists("contacts.json")) {
-    $contacts = json_decode(file_get_contents("contacts.json"), true);
-  } else {
-    $contacts = [
-      # ["name" => "Antonio", "phone_number" => "986602342"],
-      # ["name" => "Miguel", "phone_number" => "986604009"],
-      # ["name" => "Marcos", "phone_number" => "986601880"],
-      # ["name" => "Maria", "phone_number" => "986600510"]
-    ];
-  }
+require "database.php";
+
+$contacts = $conn->query("SELECT * FROM contacts;");
+// var_dump($contacts);
+// die();
 
 ?>
 
@@ -83,7 +78,7 @@
     <div class="container pt-4 p-3">
       <div class="row">
         <!-- Si no hay contactos se muestra un mensaje -->
-        <?php if (count($contacts) == 0): ?>
+        <?php if ($contacts->rowCount() == 0): ?>
           <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
               <p>No contacts saved yet</p>
