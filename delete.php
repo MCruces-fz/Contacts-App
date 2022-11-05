@@ -12,7 +12,7 @@ if (!isset($_SESSION["user"])) {
 # En $_GET no hay contenido como tal, pero se puede enviar a través de la querystring
 $id = $_GET["id"];
 
-$statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id;");
+$statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id LIMIT 1;");
 # Esto es una alternativa a bindParam. Así se pueden meter varios en lugar de hacer de uno en uno
 $statement->execute([":id" => $id]);
 
@@ -39,8 +39,15 @@ if ($statement->rowCount() == 0):
   return;
 endif;
 
+$contact = $statement->fetch(PDO::FETCH_ASSOC);
+
+if ($contact["user_id"] !== $_SESSION["user"]["id"]) {
+  http_response_code(403);
+  echo("HTTP 403 UNAUTHORIZED");
+  return;
+}
+
 $conn->prepare("DELETE FROM contacts WHERE id = :id;")->execute([":id" => $id]);
 
 header("Location: home.php");
 
-?>
