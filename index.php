@@ -93,7 +93,7 @@ $contacts = $conn->query("SELECT * FROM contacts;");
               <div class="card-body">
                 <h3 class="card-title text-capitalize"><?= $contact["name"] ?></h3>
                 <p class="m-2"><?= $contact["phone_number"] ?></p>
-                <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
+                <a href="edit.php?id=<?= $contact["id"] ?>" class="btn btn-secondary mb-2">Edit Contact</a>
                 <!-- 
                   Usamos un método GET para pedir el script de borrado enviándole el índice del elemento a borrar de BBDD 
                   Para ello le pasamos el ID del $contact que está recorriendo el loop en este momento y se añade a la querystring

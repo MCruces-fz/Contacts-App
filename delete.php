@@ -5,16 +5,15 @@ require "database.php";
 # En $_GET no hay contenido como tal, pero se puede enviar a través de la querystring
 $id = $_GET["id"];
 
-$statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id");
+$statement = $conn->prepare("SELECT * FROM contacts WHERE id = :id;");
 # Esto es una alternativa a bindParam. Así se pueden meter varios en lugar de hacer de uno en uno
 $statement->execute([":id" => $id]);
 
-if ($statement->rowCount() == 0) {
+if ($statement->rowCount() == 0): 
   http_response_code(404);
-
 ?>
 
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,15 +37,14 @@ if ($statement->rowCount() == 0) {
       Please, try again.
     </p>
   </div>
-  
 </body>
 </html>
 
 <?php
   return;
-}
+endif;
 
-$conn->prepare("DELETE FROM contacts WHERE id = :id")->execute([":id" => $id]);
+$conn->prepare("DELETE FROM contacts WHERE id = :id;")->execute([":id" => $id]);
 
 header("Location: index.php");
 
