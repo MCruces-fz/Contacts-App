@@ -1,35 +1,35 @@
 <?php
 
-  require "database.php";
+require "database.php";
 
-  $error = null;
+$error = null;
 
 // SUPERGLOBAL VARIABLE
 /*
 Esta variable contiene información sobre la petición HTTP que nos mandan
 con var_dum(_SERVER) se puede ver la información que contiene.
 */
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name = $_POST["name"];
-    $phoneNumber = $_POST["phone_number"];
+  $name = $_POST["name"];
+  $phoneNumber = $_POST["phone_number"];
 
-    if (empty($name) || empty($phoneNumber)) {
-      $error = "Please, fill all the fields.";
-    } else if (strlen($phoneNumber) < 9) {
-      $error = "Phone number must be at leaset 9 characters.";
-    } else {
+  if (empty($name) || empty($phoneNumber)) {
+    $error = "Please, fill all the fields.";
+  } else if (strlen($phoneNumber) < 9) {
+    $error = "Phone number must be at leaset 9 characters.";
+  } else {
 
-      # Safamos de las inyecciones SQL
-      $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phone_number);");
-      $statement->bindParam(":name", $name);
-      $statement->bindParam(":phone_number", $phoneNumber);
-      $statement->execute();
+    # Safamos de las inyecciones SQL
+    $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phone_number);");
+    $statement->bindParam(":name", $name);
+    $statement->bindParam(":phone_number", $phoneNumber);
+    $statement->execute();
 
-      # Pedimos que nos redireccione a index.php
-      header("Location: index.php");
-    }
+    # Pedimos que nos redireccione a index.php
+    header("Location: index.php");
   }
+}
 
 ?>
 
