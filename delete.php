@@ -2,6 +2,13 @@
 
 require "database.php";
 
+session_start();
+
+if (!isset($_SESSION["user"])) {
+  header("Location: login.php");
+  return;
+}
+
 # En $_GET no hay contenido como tal, pero se puede enviar a través de la querystring
 $id = $_GET["id"];
 
