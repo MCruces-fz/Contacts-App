@@ -28,9 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
 
     # Safamos de las inyecciones SQL
-    $statement = $conn->prepare("INSERT INTO contacts (name, phone_number) VALUES (:name, :phone_number);");
+    $statement = $conn->prepare("INSERT INTO contacts (name, phone_number, user_id) VALUES (:name, :phone_number, :user_id);");
     $statement->bindParam(":name", $name);
     $statement->bindParam(":phone_number", $phoneNumber);
+    $statement->bindParam(":user_id", $_SESSION["user"]["id"]);
     $statement->execute();
 
     # Pedimos que nos redireccione a home.php
