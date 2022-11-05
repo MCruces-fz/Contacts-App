@@ -23,7 +23,18 @@
   ></script>
 
   <!-- Linkeamos el CSS de contenido estático -->
-  <link rel="stylesheet" href="./static/css/index.css" />
+  <link rel="stylesheet" href="static/css/index.css" />
+  <!-- 
+    Linkeamos el JS con defer para que no cargue el HTML antes que el javascript y no pete cuando el HTML lo busque.
+    Esto solo lo hacemos si la URI es index.php
+  -->
+  <?php 
+  $uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+
+  if ($uri == "/contacts-app/" || $uri == "/contacts-app/index.php"):
+  ?>
+    <script defer src="static/js/welcome.js"></script>
+  <?php endif; ?>
 
   <title>Contacts App</title>
 </head>

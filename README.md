@@ -10,7 +10,7 @@ No todos los clientes tienen porque ser navegadores. No podemos fiarnos de que e
 
 Para comprobarlo, copiamos la ruta `http://localhost/contacts-app/add.php` de "Add Contact" en el navegador y desde la consola de Linux, el Content-Type del header de la request a add.php para añadir el data como `clave=valor&clave=valor`, y hacemos:
 
-`$ curl -X POST --header "Content-Type: application/x-www-form-urlencoded" --data "name=pepe&phone_number=637243918" http://localhost/contacts-app/index.php`
+`$ curl -X POST --header "Content-Type: application/x-www-form-urlencoded" --data "name=pepe&phone_number=637243918" http://localhost/contacts-app/home.php`
 
 Estamos añadiendo un contacto sin usar el navegador.
 

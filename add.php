@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement->bindParam(":phone_number", $phoneNumber);
     $statement->execute();
 
-    # Pedimos que nos redireccione a index.php
-    header("Location: index.php");
+    # Pedimos que nos redireccione a home.php
+    header("Location: home.php");
   }
 }
 

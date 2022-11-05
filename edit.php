@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       ":phone_number" => $phoneNumber
     ]);
 
-    header("Location: index.php");
+    header("Location: home.php");
   }
 }
 
