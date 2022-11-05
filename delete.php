@@ -11,36 +11,24 @@ $statement->execute([":id" => $id]);
 
 if ($statement->rowCount() == 0): 
   http_response_code(404);
+  require "partials/header.php";
 ?>
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error</title>
-  <style type=text/css>
-    h1 {
-      font: 50px Times;
-    }
-  </style>
-</head>
-<body>
-  <div>
-    <h1>
-      HTTP 404 NOT FOUND
-    </h1>
-    <p>
-      The ID <?= $id ?> you're trying to delete doesn't exist in our BBDD. 
-    </p>
-    <p>
-      Please, try again.
-    </p>
-  </div>
-</body>
-</html>
+<div>
+  <h1>
+    HTTP 404 NOT FOUND
+  </h1>
+  <hr>
+  <p>
+    The <strong>ID <?= $id ?></strong> you're trying to delete doesn't exist in our BBDD. 
+  </p>
+  <p>
+    Please, try again.
+  </p>
+</div>
 
 <?php
+  require "partials/footer.php";
   return;
 endif;
 
