@@ -34,8 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statement->bindParam(":user_id", $_SESSION["user"]["id"]);
     $statement->execute();
 
+    $_SESSION["flash"] = ["message" => "Contact $name added."];
+
     # Pedimos que nos redireccione a home.php
     header("Location: home.php");
+    
+    /* Combiene hacer un return porque a contuniación se carga el header donde se elimina el mensaje flash del $_SESSION.
+    Si se elimina el mensaje antes de que se haya cargado en la pantalla no lo llegamos a ver
+    */
+    return;
   }
 }
 

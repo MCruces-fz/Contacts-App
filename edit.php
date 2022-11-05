@@ -90,7 +90,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       ":phone_number" => $phoneNumber
     ]);
 
+    $_SESSION["flash"] = ["message" => "Contact $name updated."];
+
     header("Location: home.php");
+    return;
   }
 }
 
